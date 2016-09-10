@@ -22,7 +22,7 @@ public class JPAConfig {
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
 		LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
 		emf.setDataSource(dataSource());
-		emf.setPackagesToScan("io.egen.app.entity");
+		emf.setPackagesToScan("com.movieflix.entity");
 		emf.setJpaVendorAdapter(new EclipseLinkJpaVendorAdapter());
 		emf.setJpaProperties(jpaProperties());
 		return emf;
@@ -32,7 +32,7 @@ public class JPAConfig {
 	public DataSource dataSource() {
 		DriverManagerDataSource ds = new DriverManagerDataSource();
 		ds.setDriverClassName("com.mysql.jdbc.Driver");
-		ds.setUrl("jdbc:mysql://localhost:3306/employee-db?useSSL=false");
+		ds.setUrl("jdbc:mysql://localhost:3306/movieflix?useSSL=false");
 		ds.setUsername("root");
 		ds.setPassword("root");
 		return ds;

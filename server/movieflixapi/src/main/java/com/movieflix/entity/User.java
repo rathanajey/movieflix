@@ -24,8 +24,6 @@ public class User {
 	private String lastName;
 	private String password;
 
-
-
 	@Column(unique = true)
 	private String email;
 
