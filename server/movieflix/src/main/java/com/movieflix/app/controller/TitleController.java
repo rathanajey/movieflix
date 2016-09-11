@@ -29,6 +29,11 @@ public class TitleController {
 	public Title findOne(@PathVariable("id") String titleId) {
 		return service.findOne(titleId);
 	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "bulk", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public List<Title> createCorpus(@RequestBody List<Title> titles) {
+		return service.createTitleCorpus(titles);
+	}
 
 	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public Title create(@RequestBody Title title) {

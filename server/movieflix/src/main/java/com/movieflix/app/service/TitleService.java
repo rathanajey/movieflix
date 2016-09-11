@@ -7,7 +7,7 @@ import com.movieflix.app.entity.Title;
 
 public interface TitleService {
 	
-	public ArrayList<Title> createTitleCorpus(ArrayList<Title> titleList);
+	public ArrayList<Title> createTitleCorpus(List<Title> titles);
 	
 	public Title createTitle(Title title);
 	

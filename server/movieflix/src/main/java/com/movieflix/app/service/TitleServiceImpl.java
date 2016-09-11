@@ -20,7 +20,7 @@ public class TitleServiceImpl implements TitleService {
 
 	@Transactional
 	@Override
-	public ArrayList<Title> createTitleCorpus(ArrayList<Title> titleList) {
+	public ArrayList<Title> createTitleCorpus(List<Title> titleList) {
 		ArrayList<Title> created = new ArrayList<Title>();
 		
 		for(Title title : titleList){

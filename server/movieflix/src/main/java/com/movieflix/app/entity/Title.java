@@ -5,9 +5,12 @@ import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table
@@ -20,26 +23,64 @@ public class Title {
 	@Id
 	private String id;
 
-	private String Title;
-	private int Year;
-	private String Rated;
-	private String Released;
-	private String RunTime;
-	private String Genre;
-	private String Director;
-	private String Writer;
-	private String Actors;
-	private String Plot;
-	private String Language;
-	private String Country;
-	private String Awards;
-	private String Poster;
-	private int MetaScore;
+	@JsonProperty(value = "Title")
+	private String title;
+	
+	@JsonProperty(value = "Year")
+	private int year;
+	
+	@JsonProperty(value = "Rated")
+	private String rated;
+	
+	@JsonProperty(value = "Released")
+	private String released;
+	
+	@JsonProperty(value = "Runtime")
+	private String runTime;
+	
+	@JsonProperty(value = "Genre")
+	private String genre;
+	
+	@JsonProperty(value = "Director")
+	private String director;
+	
+	@Lob
+	@JsonProperty(value = "Writer")
+	private String writer;
+	
+	@JsonProperty(value = "Actors")
+	private String actors;
+	
+	@Column(length = 3000)
+	@JsonProperty(value = "Plot")
+	private String plot;
+	
+	@JsonProperty(value = "Language")
+	private String language;
+	
+	@JsonProperty(value = "Country")
+	private String country;
+	
+	@JsonProperty(value = "Awards")
+	private String awards;
+	
+	@JsonProperty(value = "Poster")
+	private String poster;
+	
+	@JsonProperty(value = "Metascore")
+	private int metaScore;
+	
+	@JsonProperty(value = "imdbVotes")
 	private int imdbVotes;
-	private String imdbID;
-	private String Type;
 	
 	@Column(unique = true)
+	@JsonProperty(value = "imdbID")
+	private String imdbID;
+	
+	@JsonProperty(value = "Type")
+	private String type;
+	
+	@JsonProperty(value = "imdbRating")
 	private float imdbRating;
 
 
@@ -56,123 +97,123 @@ public class Title {
 	}
 
 	public String getTitle() {
-		return Title;
+		return title;
 	}
 
 	public void setTitle(String title) {
-		this.Title = title;
+		this.title = title;
 	}
 
 	public int getYear() {
-		return Year;
+		return year;
 	}
 
 	public void setYear(int year) {
-		this.Year = year;
+		this.year = year;
 	}
 
 	public String getRated() {
-		return Rated;
+		return rated;
 	}
 
 	public void setRated(String rated) {
-		this.Rated = rated;
+		this.rated = rated;
 	}
 
 	public String getReleased() {
-		return Released;
+		return released;
 	}
 
 	public void setReleased(String released) {
-		this.Released = released;
+		this.released = released;
 	}
 
 	public String getRunTime() {
-		return RunTime;
+		return runTime;
 	}
 
 	public void setRunTime(String runTime) {
-		this.RunTime = runTime;
+		this.runTime = runTime;
 	}
 
 	public String getGenre() {
-		return Genre;
+		return genre;
 	}
 
 	public void setGenre(String genre) {
-		this.Genre = genre;
+		this.genre = genre;
 	}
 
 	public String getDirector() {
-		return Director;
+		return director;
 	}
 
 	public void setDirector(String director) {
-		this.Director = director;
+		this.director = director;
 	}
 
 	public String getWriter() {
-		return Writer;
+		return writer;
 	}
 
 	public void setWriter(String writer) {
-		this.Writer = writer;
+		this.writer = writer;
 	}
 
 	public String getActors() {
-		return Actors;
+		return actors;
 	}
 
 	public void setActors(String actors) {
-		this.Actors = actors;
+		this.actors = actors;
 	}
 
 	public String getPlot() {
-		return Plot;
+		return plot;
 	}
 
 	public void setPlot(String plot) {
-		this.Plot = plot;
+		this.plot = plot;
 	}
 
 	public String getLanguage() {
-		return Language;
+		return language;
 	}
 
 	public void setLanguage(String language) {
-		this.Language = language;
+		this.language = language;
 	}
 
 	public String getCountry() {
-		return Country;
+		return country;
 	}
 
 	public void setCountry(String country) {
-		this.Country = country;
+		this.country = country;
 	}
 
 	public String getAwards() {
-		return Awards;
+		return awards;
 	}
 
 	public void setAwards(String awards) {
-		this.Awards = awards;
+		this.awards = awards;
 	}
 
 	public String getPoster() {
-		return Poster;
+		return poster;
 	}
 
 	public void setPoster(String poster) {
-		this.Poster = poster;
+		this.poster = poster;
 	}
 
 	public int getMetaScore() {
-		return MetaScore;
+		return metaScore;
 	}
 
 	public void setMetaScore(int metaScore) {
-		this.MetaScore = metaScore;
+		this.metaScore = metaScore;
 	}
 
 	public int getImdbVotes() {
@@ -192,11 +233,11 @@ public class Title {
 	}
 
 	public String getType() {
-		return Type;
+		return type;
 	}
 
 	public void setType(String type) {
-		this.Type = type;
+		this.type = type;
 	}
 
 	public float getImdbRating() {
