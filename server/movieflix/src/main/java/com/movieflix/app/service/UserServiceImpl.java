@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.movieflix.app.entity.User;
+import com.movieflix.app.exception.EntityAlreadyExistException;
 import com.movieflix.app.repository.UserRepository;
 
 @Service
@@ -21,7 +22,7 @@ public class UserServiceImpl implements UserService {
 		User existing = repository.findByEmail(user.getEmail());
 		try {
 			if (existing != null) {
-				throw new Exception("User already exists with this email");
+				throw new EntityAlreadyExistException("User already exists with this email");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
