@@ -1,3 +1,5 @@
+package com.movieflix.app;
+
 import java.util.Properties;
 
 import javax.persistence.EntityManagerFactory;
@@ -22,7 +24,7 @@ public class JPAConfig {
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
 		LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
 		emf.setDataSource(dataSource());
-		emf.setPackagesToScan("com.movieflix.entity");
+		emf.setPackagesToScan("com.movieflix.app.entity");
 		emf.setJpaVendorAdapter(new EclipseLinkJpaVendorAdapter());
 		emf.setJpaProperties(jpaProperties());
 		return emf;

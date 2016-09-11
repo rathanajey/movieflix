@@ -1,6 +1,6 @@
-package com.movieflix.repository;
+package com.movieflix.app.repository;
 
-import com.movieflix.entity.User;
+import com.movieflix.app.entity.User;
 
 public interface UserRepository {
 

@@ -3,11 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.movieflix</groupId>
-	<artifactId>movieflixapi</artifactId>
+	<artifactId>movieflix</artifactId>
 	<version>0.0.1</version>
 	<packaging>war</packaging>
 
-	<name>movieflixapi</name>
+	<name>movieflix</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
@@ -78,6 +78,4 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-
 </project>
-

@@ -1,4 +1,4 @@
-package com.movieflix.service;
+package com.movieflix.app.service;
 
 import java.util.List;
 
@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.movieflix.entity.User;
-import com.movieflix.repository.UserRepository;
+import com.movieflix.app.entity.User;
+import com.movieflix.app.repository.UserRepository;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -17,30 +17,30 @@ public class UserServiceImpl implements UserService {
 
 	@Transactional
 	@Override
-	public User create(User emp) {
-		User existing = repository.findByEmail(emp.getEmail());
+	public User create(User user) {
+		User existing = repository.findByEmail(user.getEmail());
 		try {
 			if (existing != null) {
-				throw new Exception("Employee already exists with this email");
+				throw new Exception("User already exists with this email");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return repository.create(emp);
+		return repository.create(user);
 	}
 
 	@Transactional
 	@Override
-	public User update(String empId, User emp) {
-		User existing = repository.findOne(empId);
+	public User update(String userId, User user) {
+		User existing = repository.findOne(userId);
 		try {
 			if (existing == null) {
-				throw new Exception("Employee not found");
+				throw new Exception("User not found");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return repository.update(emp);
+		return repository.update(user);
 	}
 
 }

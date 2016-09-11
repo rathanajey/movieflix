@@ -1,11 +1,12 @@
-package com.movieflix.repository;
+package com.movieflix.app.repository;
 
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
-import com.movieflix.entity.User;
+
+import com.movieflix.app.entity.User;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository {

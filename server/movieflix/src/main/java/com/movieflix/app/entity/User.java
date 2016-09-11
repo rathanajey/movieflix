@@ -1,4 +1,4 @@
-package com.movieflix.entity;
+package com.movieflix.app.entity;
 
 import java.util.UUID;
 
@@ -23,6 +23,7 @@ public class User {
 	private String firstName;
 	private String lastName;
 	private String password;
+	private String role;
 
 	@Column(unique = true)
 	private String email;
@@ -41,6 +42,10 @@ public class User {
 
 	public String getId() {
 		return id;
+	}
+	
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getFirstName() {
@@ -65,6 +70,14 @@ public class User {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 	@Override

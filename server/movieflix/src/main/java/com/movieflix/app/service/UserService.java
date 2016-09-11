@@ -1,8 +1,8 @@
-package com.movieflix.service;
+package com.movieflix.app.service;
 
 import java.util.List;
 
-import com.movieflix.entity.User;
+import com.movieflix.app.entity.User;
 
 public interface UserService {
 
