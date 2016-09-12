@@ -43,5 +43,21 @@ public class UserServiceImpl implements UserService {
 		}
 		return repository.update(user);
 	}
+	
+	public User findByEmail(User user){
+		User existing = repository.findByEmail(user.getEmail());
+		try {
+			if (existing == null) {
+				throw new Exception("User not found");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		if(existing.getPassword().equals(user.getPassword())){
+			return existing;
+		}
+		return null;
+	}
 
 }

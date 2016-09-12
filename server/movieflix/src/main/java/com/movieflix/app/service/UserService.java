@@ -9,5 +9,7 @@ public interface UserService {
 	public User create(User user);
 
 	public User update(String userId, User user);
+	
+	public User findByEmail(User user);
 
 }

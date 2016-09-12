@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.movieflix.app.entity.User;
 import com.movieflix.app.service.UserService;
+import com.movieflix.session.SessionDetails;
 
 @RestController
 @RequestMapping(value = "users", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -22,7 +23,28 @@ public class UserController {
 
 	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public User create(@RequestBody User user) {
-		return service.create(user);
+		User created = service.create(user);
+		SessionDetails.setSession(created);
+		System.out.println("USER " + created.getEmail() + " WAS CREATED. LOGGING IN NOW");
+		
+		return created; 
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "login", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public User login(@RequestBody User user) {
+		User existing = service.findByEmail(user);
+		if(existing != null){
+			SessionDetails.setSession(existing);
+			System.out.println("USER " + existing.getEmail() + " WAS FOUND. LOGGING IN NOW");
+		}
+		
+		return existing; 
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "logout")
+	public void logout() {
+		SessionDetails.setSession(null);
+		System.out.println("USER IS LOGGED OUT NOW");
 	}
 
 	@RequestMapping(method = RequestMethod.PUT, value = "{id}", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
