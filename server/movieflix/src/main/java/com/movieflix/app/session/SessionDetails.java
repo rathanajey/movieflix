@@ -8,16 +8,20 @@ public class SessionDetails {
 	
 	private User user;
 	
+	private SessionDetails(User user){
+		this.user = user;
+	}
+	
+	public static String getUserRole(){
+		return session.getUser().getRole();
+	}
+	
 	public static SessionDetails getSession(){
 		return session;
 	}
 	
 	public static void setSession(User user){
 		session = new SessionDetails(user);
-	}
-	
-	private SessionDetails(User user){
-		this.user = user;
 	}
 	
 	public User getUser(){
