@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.movieflix.app.entity.Comment;
 import com.movieflix.app.entity.Title;
 import com.movieflix.app.exception.EntityAlreadyExistException;
 import com.movieflix.app.exception.EntityNotFoundException;
@@ -72,6 +73,20 @@ public class TitleServiceImpl implements TitleService {
 			throw new EntityNotFoundException("Employee not found");
 		}
 		return title;
+	}
+
+	@Transactional
+	@Override
+	public Comment createComment(Comment comment) {
+		// TODO Auto-generated method stub
+		return repository.createComment(comment);
+	}
+
+	@Override
+	public List<Comment> findAllComments(String titleId) {
+		// TODO Auto-generated method stub
+		
+		return repository.findAllComments(titleId);
 	}
 
 }

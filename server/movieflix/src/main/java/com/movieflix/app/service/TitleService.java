@@ -3,6 +3,7 @@ package com.movieflix.app.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.movieflix.app.entity.Comment;
 import com.movieflix.app.entity.Title;
 
 public interface TitleService {
@@ -18,5 +19,9 @@ public interface TitleService {
 	public List<Title> findAll();
 	
 	public Title findOne(String titleId);
+
+	public Comment createComment(Comment comment);
+	
+	public List<Comment> findAllComments(String titleId);
 
 }
