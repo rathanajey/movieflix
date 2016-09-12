@@ -16,12 +16,8 @@ public interface TitleService {
 	
 	public Title updateTitle(String titleId, Title title);
 	
-	public List<Title> findAll();
+	public List<Title> findAllTitles();
 	
-	public Title findOne(String titleId);
-
-	public Comment createComment(Comment comment);
-	
-	public List<Comment> findAllComments(String titleId);
+	public Title findTitle(String titleId);
 
 }

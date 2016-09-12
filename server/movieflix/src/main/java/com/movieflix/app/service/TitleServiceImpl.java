@@ -21,6 +21,16 @@ public class TitleServiceImpl implements TitleService {
 
 	@Transactional
 	@Override
+	public Title createTitle(Title title) {
+		Title existing = repository.findByImdbID(title.getImdbID());
+		if(existing != null){
+			throw new EntityAlreadyExistException("The Title already exists");
+		}
+		return repository.createTitle(title);
+	}
+	
+	@Transactional
+	@Override
 	public ArrayList<Title> createTitleCorpus(List<Title> titleList) {
 		ArrayList<Title> created = new ArrayList<Title>();
 		
@@ -30,63 +40,39 @@ public class TitleServiceImpl implements TitleService {
 		
 		return created;
 	}
-
-	@Transactional
-	@Override
-	public Title createTitle(Title title) {
-		Title existing = repository.findByImdbID(title.getImdbID());
-		if(existing != null){
-			throw new EntityAlreadyExistException("The Title already exists");
-		}
-		return repository.createTitle(title);
-	}
-
-	@Transactional
-	@Override
-	public void deleteTitle(String titleId) {
-		Title existing = repository.findOne(titleId);
-		if(existing == null){
-			throw new EntityNotFoundException("Title not found");
-		}
-		repository.deleteTitle(existing);
-	}
-
+	
 	@Transactional
 	@Override
 	public Title updateTitle(String titleId, Title title) {
-		Title existing = repository.findOne(titleId);
+		Title existing = repository.findTitle(titleId);
 		if(existing == null){
 			throw new EntityNotFoundException("Title not found");
 		}
 		return repository.updateTitle(title);
 	}
 
+	@Transactional
 	@Override
-	public List<Title> findAll() {
-		return repository.findAll();
+	public void deleteTitle(String titleId) {
+		Title existing = repository.findTitle(titleId);
+		if(existing == null){
+			throw new EntityNotFoundException("Title not found");
+		}
+		repository.deleteTitle(existing);
 	}
-
+	
 	@Override
-	public Title findOne(String titleId) {
-		Title title = repository.findOne(titleId);
+	public Title findTitle(String titleId) {
+		Title title = repository.findTitle(titleId);
 		if (title == null) {
 			throw new EntityNotFoundException("Employee not found");
 		}
 		return title;
 	}
 
-	@Transactional
 	@Override
-	public Comment createComment(Comment comment) {
-		// TODO Auto-generated method stub
-		return repository.createComment(comment);
-	}
-
-	@Override
-	public List<Comment> findAllComments(String titleId) {
-		// TODO Auto-generated method stub
-		
-		return repository.findAllComments(titleId);
+	public List<Title> findAllTitles() {
+		return repository.findAllTitles();
 	}
 
 }

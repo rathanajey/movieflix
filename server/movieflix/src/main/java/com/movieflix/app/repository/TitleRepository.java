@@ -16,12 +16,8 @@ public interface TitleRepository {
 	
 	public Title findByImdbID(String imdbID);
 	
-	public Title findOne(String id);
+	public Title findTitle(String id);
 	
-	public List<Title> findAll();
-
-	public Comment createComment(Comment comment);
-	
-	public List<Comment> findAllComments(String titleId);
+	public List<Title> findAllTitles();
 	
 }

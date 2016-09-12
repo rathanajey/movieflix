@@ -50,42 +50,15 @@ public class TitleRepositoryImpl implements TitleRepository {
 	}
 
 	@Override
-	public Title findOne(String id) {
+	public Title findTitle(String id) {
 		return em.find(Title.class, id);
 	}
 
 	@Override
-	public List<Title> findAll() {
+	public List<Title> findAllTitles() {
 		TypedQuery<Title> query = em.createNamedQuery("Title.findAll", Title.class);
 		return query.getResultList();
 
 	}
 
-	@Override
-	public Comment createComment(Comment comment) {
-		comment.setUserID(SessionDetails.getSession().getUser().getId());
-		comment.setTimeStamp(new Date().toString());
-		
-		TypedQuery<Title> query = em.createNamedQuery("Title.findOne", Title.class);
-		query.setParameter("pID", comment.getTitleId());
-		List<Title> titles = query.getResultList();
-		
-		if (titles.size() == 1) {
-			comment.setTitle(titles.get(0));
-			comment.setTitleId(titles.get(0).getId());
-		} else {
-			throw new EntityNotFoundException();
-		}
-		
-		em.persist(comment);
-		return comment;
-	}
-
-	@Override
-	public List<Comment> findAllComments(String titleId) {
-		TypedQuery<Comment> query = em.createNamedQuery("Comment.findAll", Comment.class);
-		query.setParameter("pTitleId", titleId);
-		List<Comment> comments = query.getResultList();
-		return comments;
-	}
 }
