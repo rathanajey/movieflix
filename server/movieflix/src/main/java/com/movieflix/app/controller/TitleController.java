@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.movieflix.app.entity.Title;
+import com.movieflix.app.exception.EntityAlreadyExistException;
 import com.movieflix.app.exception.EntityNotFoundException;
 import com.movieflix.app.service.TitleService;
 import com.movieflix.app.session.SessionDetails;
@@ -26,9 +27,17 @@ public class TitleController {
 
 	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public Title createTitle(@RequestBody Title title,  HttpServletResponse response) {
-		if(SessionDetails.getUserRole().equals(ADMIN_ROLE)){
-			response.setStatus(HttpServletResponse.SC_CREATED);
-			return service.createTitle(title);
+		if(SessionDetails.getUserRole().equals(ADMIN_ROLE)){	
+			try{
+				Title created = service.createTitle(title);
+				response.setStatus(HttpServletResponse.SC_CREATED);
+				return created;
+			}
+			catch(EntityAlreadyExistException e){
+				response.setStatus(HttpServletResponse.SC_CONFLICT);
+				System.err.println(e.getMessage());
+				return null;
+			}
 		}
 		
 		response.setStatus(HttpServletResponse.SC_FORBIDDEN);
@@ -38,8 +47,16 @@ public class TitleController {
 	@RequestMapping(method = RequestMethod.POST, value = "bulk", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public List<Title> createTitleCorpus(@RequestBody List<Title> titles, HttpServletResponse response) {
 		if(SessionDetails.getUserRole().equals(ADMIN_ROLE)){
-			response.setStatus(HttpServletResponse.SC_CREATED);
-			return service.createTitleCorpus(titles);
+			try{
+				List<Title> created = service.createTitleCorpus(titles);
+				response.setStatus(HttpServletResponse.SC_CREATED);
+				return created;
+			}
+			catch(EntityAlreadyExistException e){
+				response.setStatus(HttpServletResponse.SC_CONFLICT);
+				System.err.println(e.getMessage());
+				return null;
+			}
 		}
 		
 		response.setStatus(HttpServletResponse.SC_FORBIDDEN);
@@ -48,9 +65,17 @@ public class TitleController {
 
 	@RequestMapping(method = RequestMethod.PUT, value = "{id}", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public Title updateTitle(@PathVariable("id") String titleId, @RequestBody Title title, HttpServletResponse response) {
-		if(SessionDetails.getUserRole().equals(ADMIN_ROLE)){
-			response.setStatus(HttpServletResponse.SC_NO_CONTENT);
-			return service.updateTitle(titleId, title);
+		if(SessionDetails.getUserRole().equals(ADMIN_ROLE)){		
+			try{
+				Title created = service.updateTitle(titleId, title);
+				response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+				return created;
+			}
+			catch(EntityNotFoundException e){
+				response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+				System.err.println(e.getMessage());
+				return null;
+			}
 		}
 		
 		response.setStatus(HttpServletResponse.SC_FORBIDDEN);
@@ -60,8 +85,14 @@ public class TitleController {
 	@RequestMapping(method = RequestMethod.DELETE, value = "{id}")
 	public void deleteTitle(@PathVariable("id") String titleId, HttpServletResponse response) {
 		if(SessionDetails.getUserRole().equals(ADMIN_ROLE)){
-			response.setStatus(HttpServletResponse.SC_OK);
-			service.deleteTitle(titleId);
+			try{
+				response.setStatus(HttpServletResponse.SC_OK);
+				service.deleteTitle(titleId);
+			}
+			catch(EntityNotFoundException e){
+				response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+				System.err.println(e.getMessage());
+			}
 		}
 		
 		response.setStatus(HttpServletResponse.SC_FORBIDDEN);

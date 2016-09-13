@@ -1,9 +1,5 @@
 package com.movieflix.app.repository;
 
-
-import java.text.DateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
@@ -13,8 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import com.movieflix.app.entity.Comment;
 import com.movieflix.app.entity.Title;
-import com.movieflix.app.entity.User;
-import com.movieflix.app.session.SessionDetails;
 
 @Repository
 public class CommentRepositoryImpl implements CommentRepository {
@@ -24,9 +18,6 @@ public class CommentRepositoryImpl implements CommentRepository {
 	
 	@Override
 	public Comment createComment(Comment comment) {
-		comment.setUserID(SessionDetails.getSession().getUser().getId());
-		comment.setTimeStamp(new Date().toString());
-		
 		TypedQuery<Title> query = em.createNamedQuery("Title.findOne", Title.class);
 		query.setParameter("pID", comment.getTitleId());
 		List<Title> titles = query.getResultList();
@@ -35,7 +26,7 @@ public class CommentRepositoryImpl implements CommentRepository {
 			comment.setTitle(titles.get(0));
 			comment.setTitleId(titles.get(0).getId());
 		} else {
-			throw new EntityNotFoundException();
+			throw new EntityNotFoundException("Title does not exist.");
 		}
 		
 		em.persist(comment);

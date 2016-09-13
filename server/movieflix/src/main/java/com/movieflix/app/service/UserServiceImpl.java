@@ -35,6 +35,7 @@ public class UserServiceImpl implements UserService {
 		if (existing == null) {
 			throw new EntityNotFoundException("User not found");
 		}
+		
 		return repository.update(user);
 	}
 	
