@@ -11,22 +11,26 @@ import com.movieflix.app.entity.Comment;
 import com.movieflix.app.entity.Title;
 import com.movieflix.app.exception.EntityAlreadyExistException;
 import com.movieflix.app.exception.EntityNotFoundException;
+import com.movieflix.app.repository.CommentRepository;
 import com.movieflix.app.repository.TitleRepository;
 
 @Service
 public class TitleServiceImpl implements TitleService {
 	
 	@Autowired
-	TitleRepository repository;
+	TitleRepository titleRepo;
+	
+	@Autowired
+	CommentRepository commentRepo;
 
 	@Transactional
 	@Override
 	public Title createTitle(Title title) {
-		Title existing = repository.findByImdbID(title.getImdbID());
+		Title existing = titleRepo.findByImdbID(title.getImdbID());
 		if(existing != null){
 			throw new EntityAlreadyExistException("The Title already exists");
 		}
-		return repository.createTitle(title);
+		return titleRepo.createTitle(title);
 	}
 	
 	@Transactional
@@ -44,26 +48,34 @@ public class TitleServiceImpl implements TitleService {
 	@Transactional
 	@Override
 	public Title updateTitle(String titleId, Title title) {
-		Title existing = repository.findTitle(titleId);
+		Title existing = titleRepo.findTitle(titleId);
 		if(existing == null){
 			throw new EntityNotFoundException("Title not found");
 		}
-		return repository.updateTitle(title);
+		return titleRepo.updateTitle(title);
 	}
 
 	@Transactional
 	@Override
 	public void deleteTitle(String titleId) {
-		Title existing = repository.findTitle(titleId);
+		Title existing = titleRepo.findTitle(titleId);
+		
 		if(existing == null){
 			throw new EntityNotFoundException("Title not found");
 		}
-		repository.deleteTitle(existing);
+		
+		List<Comment> comments = commentRepo.findAllComments(titleId);
+		
+		for(Comment c : comments){
+			commentRepo.deleteComment(c);
+		}
+	
+		titleRepo.deleteTitle(existing);
 	}
 	
 	@Override
 	public Title findTitle(String titleId) {
-		Title title = repository.findTitle(titleId);
+		Title title = titleRepo.findTitle(titleId);
 		if (title == null) {
 			throw new EntityNotFoundException("Title not found");
 		}
@@ -72,7 +84,7 @@ public class TitleServiceImpl implements TitleService {
 
 	@Override
 	public List<Title> findAllTitles() {
-		return repository.findAllTitles();
+		return titleRepo.findAllTitles();
 	}
 
 }

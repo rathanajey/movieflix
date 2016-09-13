@@ -69,7 +69,7 @@ public class UserController {
 	public User update(@PathVariable("id") String userId, @RequestBody User user, HttpServletResponse response) {
 		try{
 			User updated = service.update(userId, user);
-			response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+			response.setStatus(HttpServletResponse.SC_OK);
 			return updated;
 		}
 		catch(EntityNotFoundException e){

@@ -40,4 +40,9 @@ public class CommentRepositoryImpl implements CommentRepository {
 		List<Comment> comments = query.getResultList();
 		return comments;
 	}
+
+	@Override
+	public void deleteComment(Comment comment) {
+		em.remove(comment);
+	}
 }

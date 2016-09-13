@@ -68,7 +68,7 @@ public class TitleController {
 		if(SessionDetails.getUserRole().equals(ADMIN_ROLE)){		
 			try{
 				Title created = service.updateTitle(titleId, title);
-				response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+				response.setStatus(HttpServletResponse.SC_OK);
 				return created;
 			}
 			catch(EntityNotFoundException e){
@@ -94,8 +94,9 @@ public class TitleController {
 				System.err.println(e.getMessage());
 			}
 		}
-		
-		response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+		else{
+			response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+		}
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "{id}")
