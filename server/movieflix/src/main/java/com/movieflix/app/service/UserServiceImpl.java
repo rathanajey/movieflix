@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.movieflix.app.entity.User;
 import com.movieflix.app.exception.EntityAlreadyExistException;
+import com.movieflix.app.exception.EntityNotFoundException;
 import com.movieflix.app.repository.UserRepository;
 
 @Service
@@ -20,13 +21,10 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User create(User user) {
 		User existing = repository.findByEmail(user.getEmail());
-		try {
-			if (existing != null) {
-				throw new EntityAlreadyExistException("User already exists with this email");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (existing != null) {
+			throw new EntityAlreadyExistException("User already exists with this email");
 		}
+
 		return repository.create(user);
 	}
 
@@ -34,29 +32,28 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User update(String userId, User user) {
 		User existing = repository.findOne(userId);
-		try {
-			if (existing == null) {
-				throw new Exception("User not found");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (existing == null) {
+			throw new EntityNotFoundException("User not found");
 		}
 		return repository.update(user);
 	}
 	
 	public User findByEmail(User user){
 		User existing = repository.findByEmail(user.getEmail());
-		try {
-			if (existing == null) {
-				throw new Exception("User not found");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (existing == null) {
+			throw new EntityNotFoundException("User not found");
 		}
 		
+		return existing;
+	}
+
+	@Override
+	public User login(User user) {
+		User existing = findByEmail(user);
 		if(existing.getPassword().equals(user.getPassword())){
 			return existing;
 		}
+		
 		return null;
 	}
 

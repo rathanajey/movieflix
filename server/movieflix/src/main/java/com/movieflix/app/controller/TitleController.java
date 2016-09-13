@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.movieflix.app.entity.Title;
+import com.movieflix.app.exception.EntityNotFoundException;
 import com.movieflix.app.service.TitleService;
 import com.movieflix.app.session.SessionDetails;
 
@@ -67,8 +68,15 @@ public class TitleController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "{id}")
-	public Title findTitle(@PathVariable("id") String titleId) {
-		return service.findTitle(titleId);
+	public Title findTitle(@PathVariable("id") String titleId, HttpServletResponse response) {
+		try{
+			return service.findTitle(titleId);
+		}
+		catch(EntityNotFoundException e){
+			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			System.err.println(	e.getMessage());
+			return null;
+		}
 	}
 	
 	@RequestMapping(method = RequestMethod.GET)

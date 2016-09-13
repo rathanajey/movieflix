@@ -65,7 +65,7 @@ public class TitleServiceImpl implements TitleService {
 	public Title findTitle(String titleId) {
 		Title title = repository.findTitle(titleId);
 		if (title == null) {
-			throw new EntityNotFoundException("Employee not found");
+			throw new EntityNotFoundException("Title not found");
 		}
 		return title;
 	}

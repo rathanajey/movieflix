@@ -11,5 +11,7 @@ public interface UserService {
 	public User update(String userId, User user);
 	
 	public User findByEmail(User user);
+	
+	public User login(User user);
 
 }

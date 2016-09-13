@@ -58,7 +58,6 @@ public class TitleRepositoryImpl implements TitleRepository {
 	public List<Title> findAllTitles() {
 		TypedQuery<Title> query = em.createNamedQuery("Title.findAll", Title.class);
 		return query.getResultList();
-
 	}
 
 }
